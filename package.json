@@ -1,0 +1,22 @@
+{
+  "name": "tiktokapi",
+  "version": "1.0.0",
+  "description": "API For Tiktok",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/refaldyrk/tiktokapi"
+  },
+  "author": "Refaldy Rizky Karim",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15",
+    "tiktok-scraper": "^1.4.36",
+    "trumpet": "^1.7.2"
+  }
+}
