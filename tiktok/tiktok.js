@@ -1,7 +1,7 @@
 const tiktok = require("tiktok-scraper");
 const randomString = require("../helper/random");
 
-async function tiktokDL(url) {
+async function tiktokDL(url, req, res) {
 	const headers = {
 		"User-Agent": randomString,
 		Referer: "https://www.tiktok.com/",
@@ -12,7 +12,10 @@ async function tiktokDL(url) {
 		return await tiktok.getVideoMeta(url, headers);
 	} catch (error) {
 		console.log(error);
-		return null;
+		res.json({
+			status: "error",
+			message: "Something went wrong: " + error,
+		});
 	}
 }
 

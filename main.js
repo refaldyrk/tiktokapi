@@ -1,6 +1,7 @@
 /**
  * Please Copyright Refaldy Rizky Karim 2022
  */
+const { default: axios } = require("axios");
 const express = require("express");
 const { tiktokDL } = require("./tiktok/tiktok");
 const app = express();
@@ -22,14 +23,27 @@ app.get("/api", async (req, res) => {
 			author: "Refaldy",
 		});
 	}
-
-	const vid = await tiktokDL(url);
-	if (!vid) {
-		res.jsonp({
+	const splitStr = url.split("/");
+	const hostLink = splitStr[2];
+	if (hostLink == "vt.tiktok.com") {
+		res.json({
 			status: "fail",
-			message: "vid gaada bruh",
-			author: "Refaldy",
+			message:
+				"url tidak valid, gunakan url yang diawali https://tiktok.com/@example/video/idnya",
 		});
+		console.log("url tidak valid");
+		return;
+	}
+
+	const vid = await tiktokDL(url, req, res).catch(error => {
+		console.log(error);
+		res.jsonp({
+			status: "error",
+			message: "Something went wrong: " + error,
+		});
+	});
+	if (!vid) {
+		return console.log("[Error] Tidak ada video");
 	}
 
 	res.json({
